@@ -1,7 +1,5 @@
 Flask==3.0.3
 numpy==1.26.4
-pyrebase4==4.5.0
-python-dotenv==1.0.0
 beautifulsoup4==4.12.3
 requests==2.27.1
 python-whois==0.7.3
