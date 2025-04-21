@@ -92,27 +92,20 @@ def predict():
             y_pred = -1  # Malicious
 
         if y_pred == 1:
-            pred = "It is {0:.2f} % safe to go ".format(y_pro_phishing * 100)
-            xx = y_pro_non_phishing
+            xx = y_pro_non_phishing  # Safe probability (probability of being non-phishing)
             name = convertion(url, int(y_pred))
-            # conn = sqlite3.connect("phishing_urls.db")
-            # cursor = conn.cursor()
-            # cursor.execute("INSERT INTO phishing_urls (url) VALUES (?)", (url,))
-            # conn.commit()
-            # conn.close()
+            prediction_text = "It is {0:.2f}% safe to use.".format(xx * 100)
         else:
-            xx = y_pro_phishing
+            xx = None  # No percentage for unsafe sites
             name = convertion(url, int(y_pred))
-        prediction_text = "Safe" if y_pred == 1 else "Malicious"
+            prediction_text = "The website is unsafe to use."
+
         return render_template(
             "index.html",
-            name=name, 
-            xx=xx,
+            name=name,
+            xx=xx,  # Pass the correct safe probability or None
             url=url,
             prediction_text=prediction_text,
-            y_pro_phishing=y_pro_phishing,
-            y_pro_non_phishing=y_pro_non_phishing,
-            # user=session.get("user")
         )
 @app.route('/check_url', methods=['POST'])
 def check_url():

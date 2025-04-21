@@ -132,21 +132,23 @@
         </div>
     </footer>
     <script>
-        let x = parseFloat('{{xx}}');
-        let num = x * 100;
-        if (0 <= x && x < 0.50) {
-            num = 100 - num;
-        }
-        let txtx = num.toFixed(2);
-        if (x <= 1 && x >= 0.50) {
-            var label = "Website is " + txtx + "% safe to use...";
-            document.getElementById("prediction").innerHTML = label;
-            document.getElementById("button1").style.display = "block";
-        } else if (0 <= x && x < 0.50) {
-            var label = "Website is " + txtx + "% unsafe to use...";
-            document.getElementById("prediction").innerHTML = label;
-            document.getElementById("button2").style.display = "block";
-        }
+        let x = parseFloat('{{xx}}'); // Safe probability passed from the backend
+let predictionText = "{{ prediction_text }}"; // Prediction message passed from the backend
+
+if (!isNaN(x)) {
+    // If x is a valid number, display the safe percentage
+    let num = x * 100; // Convert to percentage
+    let txtx = num.toFixed(2); // Format to 2 decimal places
+    var label = "Website is " + txtx + "% safe to use...";
+    document.getElementById("prediction").innerHTML = label;
+    document.getElementById("button").innerHTML = "Visit Website";
+    document.getElementById("button").className = "mt-4 px-6 py-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition-all duration-300";
+} else {
+    // If x is not a valid number, display the unsafe message
+    document.getElementById("prediction").innerHTML = predictionText;
+    document.getElementById("button").innerHTML = "Still want to continue";
+    document.getElementById("button").className = "mt-4 px-6 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-all duration-300";
+}
     </script>
 </body>
 
